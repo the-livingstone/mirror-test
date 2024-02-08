@@ -95,3 +95,7 @@ def test_order_occupied(test_client: TestClient):
     walker2 = response2["walker"]["name"]
     assert walker1 != walker2
     assert "No free walkers at the time" in response3["title"]
+
+def test_present_orders(test_client: TestClient):
+    response = get_json(test_client.get("/orders/2030-01-01"))
+    assert len(response['orders']) == 2
