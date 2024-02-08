@@ -1,8 +1,7 @@
 from sqlalchemy import MetaData, create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, declarative_base, sessionmaker
 
-import config
-
+import app.config as config
 
 metadata = MetaData(
     naming_convention={
@@ -14,6 +13,6 @@ metadata = MetaData(
     }
 )
 
-Base = declarative_base(metadata=metadata)
+Base: DeclarativeBase = declarative_base(metadata=metadata)
 engine = create_engine(config.DB_URL, connect_args={"check_same_thread": False})
 session = sessionmaker(autocommit=False, autoflush=False, bind=engine)

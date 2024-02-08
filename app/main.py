@@ -1,15 +1,14 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+
+import app.config as config
 from app.api import router
 from app.errors import RepresentativeError
-import config
-import uvicorn
-from app.db.base_db import Base, engine
 
-# Base.metadata.create_all(bind=engine)
 
 def get_app() -> FastAPI:
-    docs_url = f"/_docs" if config.DEBUG else None
+    docs_url = "/_docs" if config.DEBUG else None
     app = FastAPI(
         title="Walk the dog",
         debug=config.DEBUG,
@@ -23,9 +22,10 @@ def get_app() -> FastAPI:
 
     return app
 
+
 if __name__ == "__main__":
     uvicorn.run(
-        "macptl_test.main:get_app",
+        "app.main:get_app",
         factory=True,
         host=config.API_HOST,
         port=config.API_PORT,

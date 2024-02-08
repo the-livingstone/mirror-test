@@ -1,11 +1,11 @@
 from datetime import datetime
 from typing import Self
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, UniqueConstraint
 
+from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, relationship
+
 from app.db.base_db import Base
 from app.models import Order, Walker
-
 
 
 class WalkerORM(Base):
@@ -21,13 +21,14 @@ class WalkerORM(Base):
             uid=self.uid,
             name=self.name,
         )
-    
+
     @classmethod
     def from_entity(cls, walker: Walker) -> Self:
         return cls(
             uid=walker.uid,
             name=walker.name,
         )
+
 
 class OrderORM(Base):
     __tablename__ = "orders"
